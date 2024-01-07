@@ -9,7 +9,7 @@ class Collection_Helper
 	 * @param string $sort_by ( "key", "value" )
 	 * @return true
 	 */
-	protected function assoc_array_sort( array $array, string $direction, string $sort_by ): array {
+	public static function assoc_array_sort( array $array, string $direction, string $sort_by ): array {
 		$sorted_array = new Collection( $array );
 		$direction = strtolower( $direction );
 		$sort_by = strtolower( $sort_by );
@@ -31,7 +31,7 @@ class Collection_Helper
 		return $sorted_array->array;
 	}
 
-	protected function flat_array_sort( array $array, string $direction ) {
+    public static function flat_array_sort( array $array, string $direction ) {
 		$sorted_array = new Collection( $array );
 		$direction = strtolower( $direction );
 
@@ -44,7 +44,7 @@ class Collection_Helper
 		return $sorted_array->array;
 	}
 
-	protected function is_assoc( array $array ): bool {
+	public static function is_assoc( array $array ): bool {
 		$keys = array_keys($array);
 		return array_keys($keys) !== $keys;
 	}

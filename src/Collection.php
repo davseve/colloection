@@ -2,7 +2,8 @@
 namespace Davids\Collection;
 
 use Davids\Collection\Collection_Helper;
-class Collection extends Collection_Helper implements \Countable
+
+class Collection implements \Countable
 {
 	public $array = [];
 
@@ -11,20 +12,36 @@ class Collection extends Collection_Helper implements \Countable
 	}
 
 	public function first() {
-		return new Collection( reset($this->array ) );
+        if ( Collection_Helper::is_assoc( $this->array ) ) {
+            $value = reset( $this->array );
+            $key = array_key_first( $this->array );
+
+            return [ $key => $value ];
+        }
+
+        foreach ($this->array as $item) {
+            return $item;
+        }
 	}
 
 	public function last() {
-		return new Collection( end( $this->array ) );
+        if ( Collection_Helper::is_assoc( $this->array ) ){
+            $value = end( $this->array );
+            $key = array_key_last( $this->array );
+
+            return [ $key => $value ];
+        } else {
+            return end( $this->array );
+        }
 	}
 
-	public function add( $addition ) {
-		$this->array[] = $addition;
-		return new Collection( $this->array );
+	public function merge( $addition ) {
+        $this->array = array_merge( $this->array, $addition );
+		return new static( $this->array );
 	}
 
 	public function pop() {
-		return new Collection( array_pop( $this->array ) );
+		return new static( array_pop( $this->array ) );
 	}
 
 	public function count() {
@@ -32,20 +49,47 @@ class Collection extends Collection_Helper implements \Countable
 	}
 
 	public function map( $callback ) {
-		$mapped_array = new Collection ( $this->array );
-		return array_map( $callback, $mapped_array->array );
+        if( Collection_Helper::is_assoc( $this->array ) ){
+            $keys = array_keys( $this->array );
+            $values = array_values( $this->array );
+            return new static( array_map( $callback, $keys, $values ) );
+        }
+
+		return  new static( array_map( $callback, $this->array ) );
 	}
+
+    /**
+     * Sort flat and assoc arrays
+     *
+     * @param $callback
+     *
+     * @return $this
+     */
+    public function sort( $callback = null ) {
+        // TODO: test in the future
+        if( $callback ){
+            return new static( uasort( $this->array, 'callback' ) );
+        }
+
+        if (Collection_Helper::is_assoc( $this->array ) ){
+            asort( $this->array );
+            return new static( $this->array );
+        }
+
+        sort( $this->array );
+        return new static( $this->array );
+    }
 
 	/**
 	 * @param string $direction ("asc", "desc" )
-	 * @param string $sort_by ( "key", "value" )
+	 * @param string $s3ort_by ( "key", "value" )
 	 * @return array
 	 */
-	public function sort( $direction = 'asc', $sort_by = 'key' ) {
-		if ( $this->is_assoc( $this->array ) ) {
-			$this->assoc_array_sort( $this->array, $direction, $sort_by );
+	public function sortBy( $direction = 'asc', $sort_by = 'key' ) {
+		if ( Collection_Helper::is_assoc( $this->array ) ) {
+            Collection_Helper::assoc_array_sort( $this->array, $direction, $sort_by );
 		} else {
-			$this->flat_array_sort( $this->array, $direction );
+            Collection_Helper::flat_array_sort( $this->array, $direction );
 		}
 	}
 
@@ -54,7 +98,7 @@ class Collection extends Collection_Helper implements \Countable
 		return $this->array;
 	}
 
-//	public function __destruct() {
-//		return $this->array;
-//	}
+	public function all() {
+		return $this->array;
+	}
 }
