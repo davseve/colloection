@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_versions: ['7.4', '8.0']
+        php_versions: [ '8.1', '8.3' ]
     name: PHPUnit - PHP version ${{ matrix.php_versions }}
     env:
       WP_TESTS_DIR: /tmp/wordpress-tests-lib
@@ -57,13 +57,13 @@ jobs:
           php-version: ${{ matrix.php_versions }}
           coverage: xdebug
       - name: Run Tests with Coverage (latest PHP & WP)
-        if: ${{ matrix.php_versions >= 7.4 }}
+        if: ${{ matrix.php_versions >= 8.1 }}
         run: |
           composer update --no-interaction
           composer run coverage
       - name: Run Tests without Coverage
-        if: ${{ ! matrix.php_versions >= 7.4  }}
-        run: | # remove unsupported packages PHP < 7.4
+        if: ${{ ! matrix.php_versions >= 8.1  }}
+        run: | # remove unsupported packages PHP < 8.1
           composer remove --dev thor-juhasz/phpunit-coverage-check --ignore-platform-reqs
           composer update --no-interaction
           composer run test
