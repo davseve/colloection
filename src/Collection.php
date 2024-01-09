@@ -159,7 +159,6 @@ class Collection implements \Countable {
         }
     }
 
-
     /**
     * Get all elements of the collection.
     *
