@@ -17,6 +17,8 @@
         "thor-juhasz/phpunit-coverage-check": "^0.3.0"
     },
     "scripts": {
+        "phpunit": "./vendor/bin/phpunit tests/CollectionTest.php",
+        "phpunit-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit tests/CollectionTest.php --coverage-text",
         "coverage": "composer run coverage:test && composer run coverage:check",
         "coverage:test": "phpdbg -qrr vendor/phpunit/phpunit/phpunit --coverage-clover coverage-report/clover.xml",
         "coverage:check": "phpunit-coverage-check -t 50 coverage-report/clover.xml"

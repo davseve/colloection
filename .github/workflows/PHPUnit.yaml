@@ -63,7 +63,8 @@ jobs:
         if: ${{ matrix.php_versions >= 8.1 }}
         run: |
           composer update --no-interaction
-          composer run coverage
+          composer run phpunit-coverage
+
 
   test-result:
     needs: test

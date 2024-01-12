@@ -27,8 +27,6 @@ class Collection_Helper
 				return arsort( $sorted_array->array );
 			}
 		}
-
-		return $sorted_array->array;
 	}
 
     public static function flat_array_sort( array $array, string $direction ) {
@@ -40,8 +38,6 @@ class Collection_Helper
 		} else {
 			return rsort( $sorted_array->array );
 		}
-
-		return $sorted_array->array;
 	}
 
 	public static function is_assoc( array $array ): bool {
