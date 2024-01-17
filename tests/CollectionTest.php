@@ -4,19 +4,23 @@ namespace Davseve\Collection\Tests;
 use Davids\Collection\Collection;
 use PHPUnit\Framework\TestCase as TestCase;
 
+/**
+ * @uses Collection
+ * @covers Collection::__construct
+ */
 class CollectionTest extends TestCase {
 
-	private $assoc_collection;
+	private Collection $assoc_collection;
 
-	private $flat_collection;
+	private Collection $flat_collection;
 
-	private $cities_population = [
+	private array $cities_population = [
 		'Frankfurt' => 785000,
 		'Mumbai' => 20000000,
 		'Valencia' => 834920,
 	];
 
-	private $cities_names = [
+	private array $cities_names = [
 		'Frankfurt',
 		'Mumbai',
 		'Valencia',
