@@ -94,7 +94,7 @@ class Collection implements \Countable {
     *
     * @return int
     */
-    public function count() {
+    public function count(): int {
         return count( $this->array );
     }
 
@@ -158,7 +158,6 @@ class Collection implements \Countable {
             Collection_Helper::flat_array_sort( $this->array, $direction );
         }
     }
-
 
     /**
     * Get all elements of the collection.

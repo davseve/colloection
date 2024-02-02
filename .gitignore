@@ -1,3 +1,6 @@
 .idea/
 vendor/
+cov/
+.phpunit.cache/
+.phpunit.result.cache
 

@@ -12,8 +12,12 @@
             "email": "davids@elementor.com"
         }
     ],
-    "require": {},
     "require-dev": {
-        "phpunit/phpunit": "^10"
+        "phpunit/phpunit": "^9.6",
+        "thor-juhasz/phpunit-coverage-check": "^0.3.0"
+    },
+    "scripts": {
+        "phpunit": "./vendor/bin/phpunit tests/CollectionTest.php",
+        "phpunit-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit tests/CollectionTest.php --coverage-text"
     }
 }
