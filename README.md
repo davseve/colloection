@@ -1,6 +1,3 @@
-Sure, here's the README.md file content with all content converted to Markdown format:
-
-```markdown
 # PHP Collection Class (POC)
 
 This `Collection` class is a POC inspired by Laravel's collection. It offers various methods for working with arrays of data in PHP.
@@ -77,6 +74,7 @@ $assocCollection = new Collection(['Timisoara' => 200000, 'Cluj' => 400000]);
 // Merge with another array and then map
 $mappedAssocCollection = $assocCollection
     ->merge(['Arad' => 30000])
+    ->sort()
     ->map(function ($key, $item) {
         return $key . ' has ' . $item . ' habitats';
     })
@@ -86,9 +84,9 @@ print_r($mappedAssocCollection);
 // Output: Cluj has 400000 habitats
 ```
 
-In this example, we create an associative collection with population data for two cities. Then, we merge it with another array containing population data for a new city ('Arad'). Next, we sort the collection alphabetically, map over the collection to create a new array with formatted strings indicating the number of habitats for each city, and finally, retrieve the last element of the resulting collection, which is 'Cluj has 400000 habitats'.
+In this example, we create an associative collection with population data for two cities. Then, we merge it with another array containing population data for a new city ('Arad'). Next, we sort the collection by the population (values), map over the collection to create a new array with formatted strings indicating the number of habitats for each city, and finally, retrieve the last element of the resulting collection, which is 'Cluj has 400000 habitats'.
 
 ## Note
 
-This `Collection` class is a proof of concept (POC) and may not be complete or fully functional. Further testing and development are needed. Contributions are welcome!
+This `Collection` class is a proof of concept (POC) and is not complete or fully functional. Further testing and development are needed. Contributions are welcome!
 ```
