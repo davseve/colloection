@@ -74,14 +74,14 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-version }}
-        coverage: none
+        coverage: xdebug
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run PHPUnit tests
       run: ./vendor/bin/phpunit --coverage-text
-  
+
   test-result:
     needs: test
     if: ${{ always() }} # Will be run even if 'test' matrix will be skipped
