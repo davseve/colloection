@@ -60,6 +60,11 @@ jobs:
           composer remove --dev thor-juhasz/phpunit-coverage-check --ignore-platform-reqs
           composer update --no-interaction
           composer run test
+      - name: Run Tests with Coverage
+        if: ${{ matrix.php_versions >= 8.1 }}
+        run: |
+          composer update --no-interaction
+          composer run phpunit-coverage
 
   test-result:
     needs: test
