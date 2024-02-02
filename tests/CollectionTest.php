@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase as TestCase;
 
 /**
  * @uses Collection
- * @covers Collection::__construct
+ * @covers Collection
  */
 class CollectionTest extends TestCase {
 
