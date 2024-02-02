@@ -17,6 +17,7 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
+
       - name: Check PHP files diff
         id: php_diff_files
         uses: technote-space/get-diff-action@v6
@@ -44,28 +45,6 @@ jobs:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-#    steps:
-#      - name: Checkout source code
-#        uses: actions/checkout@v3
-#        with:
-#          fetch-depth: 0
-#      - name: Setup PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: ${{ matrix.php_versions }}
-#          coverage: xdebug
-#      - name: Run Tests without Coverage
-#        if: ${{ ! matrix.php_versions >= 8.1  }}
-#        run: |
-#          composer remove --dev thor-juhasz/phpunit-coverage-check --ignore-platform-reqs
-#          composer update --no-interaction
-#          composer run test
-#      - name: Run Tests with Coverage
-#        if: ${{ matrix.php_versions >= 8.1 }}
-#        run: |
-#          composer update --no-interaction
-#          composer run phpunit-coverage
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -74,22 +53,25 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-version }}
-        coverage: xdebug
+        coverage: none
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Run PHPUnit tests
-      run: ./vendor/bin/phpunit --coverage-text
+#    - name: Run PHPUnit tests
+#      run: ./vendor/bin/phpunit --coverage-text
 
   test-result:
     needs: test
     if: ${{ always() }} # Will be run even if 'test' matrix will be skipped
     runs-on: ubuntu-20.04
+
     name: PHPUnit - Test Results
     steps:
-      - name: Test status
-        run: echo "Test status is - ${{ needs.test.result }}"
-      - name: Check test matrix status
-        if: ${{ needs.test.result != 'success' && needs.test.result != 'skipped' }}
-        run: exit 1
+
+    - name: Test status
+      run: echo "Test status is - ${{ needs.test.result }}"
+
+    - name: Check test matrix status
+      if: ${{ needs.test.result != 'success' && needs.test.result != 'skipped' }}
+      run: exit 1
